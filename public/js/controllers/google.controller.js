@@ -46,6 +46,7 @@
         gc.downVote = downVote;
         gc.upVote = upVote;
         gc.showComentarios = showComentarios;
+        gc.showPin = showPin;
 
         init();
 
@@ -181,10 +182,7 @@
                     if(todos_votos[i].id_pin == pin.id_pin && todos_votos[i].type == '-'){
                         acao_voto = true;
                         search = i;
-                        toast.create({
-                            className: 'info',
-                            content: 'Voto desfeito'
-                        });
+                        toastr.info('Voto desfeito');
                         var update_pin = {
                             id_pin: todos_votos[i].id_pin,
                             voto: 1
@@ -200,10 +198,7 @@
                             id_pin: pin.id_pin,
                             type: '-'
                         });
-                        toast.create({
-                            className: 'success',
-                            content: 'Obrigado por votar'
-                        });
+                        toastr.success('obrigado por votas');
                         var update_pin = {
                             id_pin: todos_votos[i].id_pin,
                             voto: -1
@@ -223,11 +218,7 @@
                     id_pin: pin.id_pin,
                     type: '-'
                 });
-
-                toast.create({
-                    className: 'success',
-                    content: 'Obrigado por votar'
-                });
+                toastr.info('Obrigado por votar');
                 var update_pin = {
                     id_pin: pin.id_pin,
                     voto: -1
@@ -270,11 +261,7 @@
                             id_pin: pin.id_pin,
                             type: '+'
                         });
-
-                        toast.create({
-                            className: 'success',
-                            content: 'Obrigado por votar'
-                        });
+                        toastr.success('Obrigado por votar');
                         var update_pin = {
                             id_pin: todos_votos[i].id_pin,
                             voto: 1
@@ -282,8 +269,8 @@
                         PinService.update(update_pin)
                         PinService.update(update_pin)
                             .then(function(response){
-                                gc.pin_select = response.pin
-                            })
+                                gc.pin_select = response.pin;
+                            });
                     }
                 }
                 if(search != '')
@@ -294,21 +281,25 @@
                     id_pin: pin.id_pin,
                     type: '+'
                 });
-
-                toast.create({
-                    className: 'success',
-                    content: 'Obrigado por votar'
-                });
+                toastr.success('Obrigado por votar');
                 var update_pin = {
                     id_pin: pin.id_pin,
                     voto: 1
                 }
                 PinService.update(update_pin)
                     .then(function(response){
-                        gc.pin_select = response.pin
+                        gc.pin_select = response.pin;
                     })
             }
-            $cookie.put('voto', JSON.stringify(todos_votos))
+            $cookie.put('voto', JSON.stringify(todos_votos));
+        }
+
+        function showPin(pin){
+            gc.map.center = {
+                latitude: pin.lat,
+                longitude: pin.long
+            }
+
         }
     }
 

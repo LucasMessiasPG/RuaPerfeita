@@ -47,9 +47,10 @@
                     <div class="margin-top">
                         <div ng-repeat="last in gc.lasts">
                             <ul>
-                                <li>Criado em: {{ last.created_at | date:"dd/MM/yyyy HH:ii" }}</li>
-                                <li>Tipo: <img src="{{ last.imagem_icon }}" alt="{{ last.nome }}"> {{ last.nome }}</li>
+                                <li><img src="{{ last.imagem_icon }}" alt="{{ last.nome }}"> {{ last.created_at | date:"dd/MM/yyyy HH:ii" }}</li>
+                                <li>Tipo: {{ last.nome }}</li>
                                 <li>Descrição: {{ last.descricao }}</li>
+                                <li><button ng-click="gc.showPin(last)">ver no mapa</button></li>
                             </ul>
                         </div>
                     </div>
